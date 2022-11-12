@@ -85,6 +85,7 @@ Currently you must SSH into the instance to apply the command but we will provid
 | [aws_subnet.public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
 | [aws_vpc.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) | resource |
 | [aws_key_pair.instance_ssh_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
+| [aws_security_group.instance_sg](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 
 ## Inputs
 | Name | Description | Type | Default | Required |
@@ -92,8 +93,10 @@ Currently you must SSH into the instance to apply the command but we will provid
 | vpc_CIDR_block | The IPv4 CIDR block of the VPC | `String` | `10.0.0.0/15` | No |
 | vpc_name | The name of the VPC | `String` | `ubuntu-desktop-vpc` | No |
 | region | The region where the infrastructure will be deployed | `string` | `us-east-1` | No |
-| public_subnet_CIDR_block | The IPv4 CIDR block of the public subnet | `string` | No |
-| instance_ssh_key_pair_name | The ssh key pair name | `string` | No |
+| public_subnet_CIDR_block | The IPv4 CIDR block of the public subnet | `string` | 10.0.0.0/28 | No |
+| instance_ssh_key_pair_name | The ssh key pair name | `string` | instance-ssh-key | No |
+| instance_sg_name | The instance security group name | `string` | instance-ssh-key | No |
+| user_ip_address | The home IP address of the user | `string` | n/a | Yes |
 
 ## Outputs
 | Name | Description |
@@ -103,5 +106,7 @@ Currently you must SSH into the instance to apply the command but we will provid
 | public_subnet_id | The public subnet ID |
 | public_subnet_arn | The public subnet arn |
 | public_subnet_cidr_block | The public subnet CIDR block |
-| instance_ssh_key_arn | The arn of the instance ssh key paid |
-| instance_ssh_key_id | The ID of the instance ssh key paid |
+| instance_ssh_key_arn | The arn of the instance ssh key pair |
+| instance_ssh_key_id | The ID of the instance ssh key pair |
+| instance_sg_arn | The arn of the instance security group |
+| instance_sg_id | The ID of the instance security group |
