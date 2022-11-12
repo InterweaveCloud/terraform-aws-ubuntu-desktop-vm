@@ -27,3 +27,14 @@ variable "instance_ssh_key_pair_name" {
   default = "instance-ssh-key"
   description = "The ssh key pair name"
 }
+
+variable "instance_sg_name" {
+  type = string
+  default = "instance-ssh-key"
+  description = "The instance security group name"
+}
+
+variable "user_ip_address" {
+  type = string
+  description = "The home IP address of the user"
+}
