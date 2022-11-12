@@ -72,3 +72,36 @@ resource "aws_security_group" "instance_sg" {
     Name = "allow_ssh_inbound"
   }
 }
+
+// AMI-ID of Ubuntu Desktop 20.04 with Chrome RDP and KDE Plasma 5 -ami-0927aded7477e6e87
+// Ubuntu 22.04 AMI - ami-0f540e9f488cfa27d 
+// Public Ubuntu Desktop 22.04 AMI with Chrome RDP and KDE Plasma 5 - ami-0a00786fb4fbf6df7
+resource "aws_spot_instance_request" "instance" {
+  // Spot instance request configuration
+  spot_price                     = "${var.instance_spot_price}"
+  instance_type                  = "${var.instance_type}"
+  instance_interruption_behavior = "${var.instance_interruption_behavior}"
+  block_duration_minutes         = "${var.instance_block_duration_minutes}"
+
+  // EC2 Configuration
+  ami                         = "${var.instance_ami}"
+  associate_public_ip_address = var.associate_public_ip_address
+  subnet_id                   = module.vpc.public_subnets[0]
+  monitoring                  = var.instance_monitoring
+  key_name                    = aws_key_pair.instance_ssh_key.key_name
+  vpc_security_group_ids      = [aws_security_group.instance_sg.id]
+
+  // Use this code block to create a new AMI
+  root_block_device {
+    volume_size           = var.root_block_device_size
+    volume_type           = "${var.root_block_device_type}"
+    throughput            = var.root_block_device_throughput
+    encrypted             = var.root_block_device_encryption
+    delete_on_termination = var.root_block_device_delete_on_termination
+  }
+
+  tags = {
+    Name = "UbuntuDesktop"
+    AutomatedEbsBackups = "true"
+  }
+}

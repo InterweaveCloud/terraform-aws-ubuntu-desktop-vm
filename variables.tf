@@ -38,3 +38,75 @@ variable "user_ip_address" {
   type = string
   description = "The home IP address of the user"
 }
+
+variable "instance_spot_price" {
+  type = string
+  default = "0.1888"
+  description = "The maximum price to request on the spot market"
+}
+
+variable "instance_type" {
+  type = string
+  default = "t3.xlarge"
+  description = "The instance type"
+}
+
+variable "instance_interruption_behavior" {
+  type = string
+  default = "stop"
+  description = "Indicates Spot instance behavior when it is interrupted"
+}
+
+variable "instance_block_duration_minutes" {
+  type = number
+  default = 0
+  description = "The required duration for the Spot instances, in minutes"
+}
+
+variable "instance_ami" {
+  type = string
+  default = "ami-0a00786fb4fbf6df7"
+  description = "The ami used for the instance"
+}
+
+variable "associate_public_ip_address" {
+  type = bool
+  default = true
+  description = "Whether to associate a public IP address with an instance in a VPC"
+}
+
+variable "instance_monitoring" {
+  type = bool
+  default = true
+  description = "Whether detailed monitoring is enabled for EC2 instance"
+}
+
+variable "root_block_device_size" {
+  type = number
+  default = 32
+  description = "Size of the volume in gibibytes"
+}
+
+variable "root_block_device_type" {
+  type = string
+  default = "gp3"
+  description = "The type of volume"
+}
+
+variable "root_block_device_throughput" {
+  type = number
+  default = 125
+  description = "Throughput to provision for a volume in mebibytes per second (MiB/s)"
+}
+
+variable "root_block_device_encryption" {
+  type = bool
+  default = false
+  description = "Whether to enable volume encryption"
+}
+
+variable "root_block_device_delete_on_termination" {
+  type = bool
+  default = true
+  description = "Whether the volume should be destroyed on instance termination"
+}
