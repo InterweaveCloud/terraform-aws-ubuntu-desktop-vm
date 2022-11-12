@@ -22,3 +22,13 @@ output "public_subnet_cidr_block" {
   description = "The public subnet CIDR block"
   value = module.vpc.public_subnets_cidr_blocks
 }
+
+output "instance_ssh_key_arn" {
+  description = "The arn of the instance ssh key paid"
+  value = aws_key_pair.instance_ssh_key.arn
+}
+
+output "instance_ssh_key_id" {
+  description = "The ID of the instance ssh key paid"
+  value = aws_key_pair.instance_ssh_key.id
+}
