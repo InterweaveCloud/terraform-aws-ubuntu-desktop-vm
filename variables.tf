@@ -21,3 +21,9 @@ variable "public_subnet_CIDR_block" {
   default = "10.0.0.0/28"
   description = "The IPv4 CIDR block of the public subnet"
 }
+
+variable "instance_ssh_key_pair_name" {
+  type = string
+  default = "instance-ssh-key"
+  description = "The ssh key pair name"
+}
