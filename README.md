@@ -84,6 +84,7 @@ Currently you must SSH into the instance to apply the command but we will provid
 | [aws_route_table_association.public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association) | resource |
 | [aws_subnet.public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
 | [aws_vpc.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) | resource |
+| [aws_key_pair.instance_ssh_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
 
 ## Inputs
 | Name | Description | Type | Default | Required |
@@ -91,3 +92,5 @@ Currently you must SSH into the instance to apply the command but we will provid
 | vpc_name | The name of the VPC | `String` | `ubuntu-desktop-vpc` | No |
 | region | The region where the infrastructure will be deployed | `string` | `us-east-1` | No |
 | public_subnet_CIDR_block | The IPv4 CIDR block of the public subnet | `string` | No |
+| instance_ssh_key_pair_name | The ssh key pair name | `string` | No |
+
