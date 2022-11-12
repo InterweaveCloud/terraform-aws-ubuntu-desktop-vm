@@ -42,3 +42,23 @@ output "instance_sg_id" {
   description = "The ID of the instance security group"
   value = aws_security_group.instance_sg.id
 }
+
+output "instance_arn" {
+  description = "The arn of the instance"
+  value = aws_spot_instance_request.instance.arn
+}
+
+output "instance_id" {
+  description = "The ID of the instance"
+  value = aws_spot_instance_request.instance.id
+}
+
+output "instance_public_ip" {
+  description = "The public ip address of the instance"
+  value = aws_spot_instance_request.instance.public_ip
+}
+
+output "instance_private_ip" {
+  description = "The private ip address of the instance"
+  value = aws_spot_instance_request.instance.private_ip
+}
