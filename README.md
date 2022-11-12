@@ -88,9 +88,20 @@ Currently you must SSH into the instance to apply the command but we will provid
 
 ## Inputs
 | Name | Description | Type | Default | Required |
+|------------------------------------------------|
 | vpc_CIDR_block | The IPv4 CIDR block of the VPC | `String` | `10.0.0.0/15` | No |
 | vpc_name | The name of the VPC | `String` | `ubuntu-desktop-vpc` | No |
 | region | The region where the infrastructure will be deployed | `string` | `us-east-1` | No |
 | public_subnet_CIDR_block | The IPv4 CIDR block of the public subnet | `string` | No |
 | instance_ssh_key_pair_name | The ssh key pair name | `string` | No |
 
+## Outputs
+| Name | Description |
+|--------------------|
+| vpc_id | The ID of the VPC |
+| vpc_arn | The arn of the VPC |
+| public_subnet_id | The public subnet ID |
+| public_subnet_arn | The public subnet arn |
+| public_subnet_cidr_block | The public subnet CIDR block |
+| instance_ssh_key_arn | The arn of the instance ssh key paid |
+| instance_ssh_key_id | The ID of the instance ssh key paid |
