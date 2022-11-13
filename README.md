@@ -91,6 +91,7 @@ Currently you must SSH into the instance to apply the command but we will provid
 | [aws_eip_association.instance_eip_assoc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip_association) | resource |
 | [aws_iam_role.dlm_lifecycle_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy.dlm_lifecycle](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
+| [aws_dlm_lifecycle_policy.instance_backup](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dlm_lifecycle_policy) | resource |
 
 ## Inputs
 | Name | Description | Type | Default | Required |
@@ -142,3 +143,5 @@ Currently you must SSH into the instance to apply the command but we will provid
 | iam_role_arn | The arn of the IAM role |
 | iam_role_id | The ID of the IAM role |
 | iam_role_policy_id | The ID of the IAM role policy |
+| lifecycle_policy_arn | The arn of the lifecycle policy |
+| lifecycle_policy_id | The arn of the lifecycle policy |
