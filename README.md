@@ -123,14 +123,14 @@ module "ubuntu_desktop" {
 ## Inputs
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| vpc_CIDR_block | The IPv4 CIDR block of the VPC | `String` | `"10.0.0.0/15"` | No |
+| vpc_cidr_block | The IPv4 CIDR block of the VPC | `string` | `"10.0.0.0/26"` | No |
 | region | The region where the infrastructure will be deployed | `string` | `"us-east-1"` | No |
-| public_subnet_CIDR_block | The IPv4 CIDR block of the public subnet | `string` | `"10.0.0.0/28"` | No |
+| public_subnet_cidr_block | The IPv4 CIDR block of the public subnet | `string` | `"10.0.0.0/28"` | No |
 | allowed_ingress_cidr_blocks | List of IP addresses allowed access to instance | `list(string)` | `n/a` | Yes |
 | instance_spot_price | The maximum price to request on the spot market | `string` | `"0.1888"` | No |
-| instance_type | The instance type | `string` | `"t3.xlarge"` | No |
+| instance_type | Instance type to use for the instance | `string` | `"t3.xlarge"` | No |
 | instance_interruption_behavior | Indicates Spot instance behavior when it is interrupted | `string` | `"stop"` | No |
-| instance_block_duration_minutes | The required duration for the Spot instances, in minutes | `number` | `0` | No |
+| instance_block_duration_minutes | The required duration for the Spot instances, in minutes. This value must be a multiple of 60 (60, 120, 180, 240, 300, or 360). The duration period starts as soon as your Spot instance receives its instance ID. At the end of the duration period, Amazon EC2 marks the Spot instance for termination and provides a Spot instance termination notice, which gives the instance a two-minute warning before it terminates. Note that you can't specify an Availability Zone group or a launch group if you specify a duration | `number` | `0` | No |
 | instance_ami | The ami used for the instance | `string` | `"ami-0a00786fb4fbf6df7"` | No |
 | associate_public_ip_address | Whether to associate a public IP address with an instance in a VPC | `bool` | `true` | No |
 | instance_monitoring | Whether detailed monitoring is enabled for EC2 instance | `bool` | `true` | No |
