@@ -87,6 +87,8 @@ Currently you must SSH into the instance to apply the command but we will provid
 | [aws_key_pair.instance_ssh_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
 | [aws_security_group.instance_sg](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_spot_instance_request.instance](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/spot_instance_request#argument-reference) | resource |
+| [aws_eip.instance_ip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) | resource |
+| [aws_eip_association.instance_eip_assoc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip_association) | resource |
 
 ## Inputs
 | Name | Description | Type | Default | Required |
@@ -127,3 +129,9 @@ Currently you must SSH into the instance to apply the command but we will provid
 | instance_id | The ID of the instance |
 | instance_public_ip | The public ip address of the instance |
 | instance_private_ip | The private ip address of the instance |
+| elastic_ip_id | The ID of the elastic IP |
+| elastic_ip_public_ip | The public IP address of the elastic IP |
+| elastic_ip_private_ip | The private IP address of the elastic IP |
+| elastic_ip_association_public_ip | The public IP address of the elastic IP association |
+| elastic_ip_association_private_ip | The private IP address of the elastic IP association |
+| elastic_ip_association_id | The private IP address of the elastic IP association |
