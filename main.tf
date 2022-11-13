@@ -105,3 +105,12 @@ resource "aws_spot_instance_request" "instance" {
     AutomatedEbsBackups = "true"
   }
 }
+
+resource "aws_eip" "instance_ip" {
+  vpc = true
+}
+
+resource "aws_eip_association" "instance_eip_assoc" {
+  instance_id   = aws_spot_instance_request.instance.spot_instance_id
+  allocation_id = aws_eip.instance_ip.id
+}
