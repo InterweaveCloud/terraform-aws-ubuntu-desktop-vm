@@ -74,6 +74,31 @@ Currently you must SSH into the instance to apply the command but we will provid
 
 [Ubuntu Blog on Ubuntu Desktop on GCP](https://ubuntu.com/blog/launch-ubuntu-desktop-on-google-cloud)  
 [Guide to install KDE Plasma 5](https://www.tecmint.com/install-kde-plasma-5-in-linux/)
+## Usage
+```
+module "ubuntu_desktop" {
+    source = "../terraform_aws_ubuntu_desktop_vm"
+    user_ip_address = "XXX"
+    tags = {
+        Terraform   = "true"
+        Environment = "dev"
+  }
+}
+
+```
+
+## Requirements
+| Name | Version |
+|------|---------|
+| aws | >= 3.73 |
+
+## Providers
+| Name | Version |
+|------|---------|
+| aws | >=3.73 |
+
+## Modules
+[AWS VPC Terraform Module](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest)
 
 ## Resources
 | Name | Type |
