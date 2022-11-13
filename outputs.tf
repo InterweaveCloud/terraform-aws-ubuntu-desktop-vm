@@ -102,3 +102,8 @@ output "iam_role_id" {
   description = "The ID of the IAM role"
   value = aws_iam_role.dlm_lifecycle_role.id
 }
+
+output "iam_role_policy_id" {
+  description = "The ID of the IAM role policy"
+  value = aws_iam_role_policy.dlm_lifecycle.id
+}
