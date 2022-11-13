@@ -92,3 +92,13 @@ output "elastic_ip_association_id" {
   description = "The private IP address of the elastic IP association"
   value = aws_eip_association.instance_eip_assoc.id
 }
+
+output "iam_role_arn" {
+  description = "The arn of the IAM role"
+  value = aws_iam_role.dlm_lifecycle_role.arn
+}
+
+output "iam_role_id" {
+  description = "The ID of the IAM role"
+  value = aws_iam_role.dlm_lifecycle_role.id
+}
