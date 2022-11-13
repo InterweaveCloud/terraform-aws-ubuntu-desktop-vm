@@ -74,6 +74,8 @@ Currently you must SSH into the instance to apply the command but we will provid
 
 [Ubuntu Blog on Ubuntu Desktop on GCP](https://ubuntu.com/blog/launch-ubuntu-desktop-on-google-cloud)  
 [Guide to install KDE Plasma 5](https://www.tecmint.com/install-kde-plasma-5-in-linux/)
+[Guide to generate SSH keys](https://docs.oracle.com/en/cloud/cloud-at-customer/occ-get-started/generate-ssh-key-pair.html)
+
 ## Usage
 ```
 module "ubuntu_desktop" {
@@ -122,12 +124,9 @@ module "ubuntu_desktop" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | vpc_CIDR_block | The IPv4 CIDR block of the VPC | `String` | `"10.0.0.0/15"` | No |
-| vpc_name | The name of the VPC | `String` | `"ubuntu-desktop-vpc"` | No |
 | region | The region where the infrastructure will be deployed | `string` | `"us-east-1"` | No |
 | public_subnet_CIDR_block | The IPv4 CIDR block of the public subnet | `string` | `"10.0.0.0/28"` | No |
-| instance_ssh_key_pair_name | The ssh key pair name | `string` | `"instance-ssh-key"` | No |
-| instance_sg_name | The instance security group name | `string` | `"instance-ssh-key"` | No |
-| user_ip_address | The home IP address of the user | `string` | `n/a` | Yes |
+| allowed_ingress_cidr_blocks | List of IP addresses allowed access to instance | `list(string)` | `n/a` | Yes |
 | instance_spot_price | The maximum price to request on the spot market | `string` | `"0.1888"` | No |
 | instance_type | The instance type | `string` | `"t3.xlarge"` | No |
 | instance_interruption_behavior | Indicates Spot instance behavior when it is interrupted | `string` | `"stop"` | No |
@@ -138,10 +137,12 @@ module "ubuntu_desktop" {
 | root_block_device_size | Size of the volume in gibibytes | `number` | `32` | No |
 | root_block_device_type | The type of volume | `string` | `"gp3"` | No |
 | root_block_device_throughput | Throughput to provision for a volume in mebibytes per second (MiB/s) | `number` | `"125"` | No |
-| root_block_device_encryption | Whether to enable volume encryption | `bool` | `false` | No |
+| root_block_device_encryption | Whether to enable volume encryption | `bool` | `true` | No |
 | root_block_device_delete_on_termination | Whether the volume should be destroyed on instance termination | `bool` | `true` | No |
-| iam_role_name | The name given to the IAM role | `string` | `"dlm-lifecycle-role"` | No |
-| iam_role_policy_name | The name given to the IAM role policy | `string` | `"dlm-lifecycle-role"`
+| use_ipam_pool | Determines whether IPAM pool is used for CIDR allocation | `bool` | `false` | No |
+| public_key | The public key used for the ssh key pair | `string` | `n/a` | Yes |
+| terraform_tag | Tag pair for terraform tag | `string` | `"true"` | No |
+| environment | Tag pair for environment tag | `string` | `"dev"` | No |
 
 ## Outputs
 | Name | Description |
@@ -160,13 +161,5 @@ module "ubuntu_desktop" {
 | instance_public_ip | The public ip address of the instance |
 | instance_private_ip | The private ip address of the instance |
 | elastic_ip_id | The ID of the elastic IP |
-| elastic_ip_public_ip | The public IP address of the elastic IP |
-| elastic_ip_private_ip | The private IP address of the elastic IP |
-| elastic_ip_association_public_ip | The public IP address of the elastic IP association |
-| elastic_ip_association_private_ip | The private IP address of the elastic IP association |
-| elastic_ip_association_id | The private IP address of the elastic IP association |
-| iam_role_arn | The arn of the IAM role |
-| iam_role_id | The ID of the IAM role |
-| iam_role_policy_id | The ID of the IAM role policy |
 | lifecycle_policy_arn | The arn of the lifecycle policy |
 | lifecycle_policy_id | The arn of the lifecycle policy |

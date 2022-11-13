@@ -1,13 +1,13 @@
-variable "vpc_CIDR_block" {
+variable "vpc_cidr_block" {
   type        = string
-  default     = "10.0.0.0/16"
+  default     = "10.0.0.0/26"
   description = "The IPv4 CIDR block of the VPC"
 }
 
-variable "vpc_name" {
-  type        = string
-  default     = "ubuntu-desktop-vpc"
-  description = "The name of the VPC"
+variable "use_ipam_pool" {
+  description = "Determines whether IPAM pool is used for CIDR allocation"
+  type        = bool
+  default     = false
 }
 
 variable "region" {
@@ -16,39 +16,32 @@ variable "region" {
   description = "The region where the infrastructure will be deployed"
 }
 
-variable "public_subnet_CIDR_block" {
+variable "public_subnet_cidr_block" {
   type        = string
   default     = "10.0.0.0/28"
   description = "The IPv4 CIDR block of the public subnet"
 }
 
-variable "instance_ssh_key_pair_name" {
-  type        = string
-  default     = "instance-ssh-key"
-  description = "The ssh key pair name"
+variable "public_key" {
+  type = string
+  description = "The public key material"
 }
 
-variable "instance_sg_name" {
-  type        = string
-  default     = "instance-ssh-key"
-  description = "The instance security group name"
-}
-
-variable "user_ip_address" {
-  type        = string
-  description = "The home IP address of the user"
+variable "allowed_ingress_cidr_blocks" {
+  type        = list(string)
+  description = "List of IP addresses allowed access to instance"
 }
 
 variable "instance_spot_price" {
   type        = string
-  default     = "0.1888"
+  default     = null
   description = "The maximum price to request on the spot market"
 }
 
 variable "instance_type" {
   type        = string
   default     = "t3.xlarge"
-  description = "The instance type"
+  description = "Instance type to use for the instance."
 }
 
 variable "instance_interruption_behavior" {
@@ -60,13 +53,13 @@ variable "instance_interruption_behavior" {
 variable "instance_block_duration_minutes" {
   type        = number
   default     = 0
-  description = "The required duration for the Spot instances, in minutes"
+  description = "The required duration for the Spot instances, in minutes. This value must be a multiple of 60 (60, 120, 180, 240, 300, or 360). The duration period starts as soon as your Spot instance receives its instance ID. At the end of the duration period, Amazon EC2 marks the Spot instance for termination and provides a Spot instance termination notice, which gives the instance a two-minute warning before it terminates. Note that you can't specify an Availability Zone group or a launch group if you specify a duration."
 }
 
 variable "instance_ami" {
   type        = string
   default     = "ami-0a00786fb4fbf6df7"
-  description = "The ami used for the instance"
+  description = "AMI to use for the instance"
 }
 
 variable "associate_public_ip_address" {
@@ -101,7 +94,7 @@ variable "root_block_device_throughput" {
 
 variable "root_block_device_encryption" {
   type        = bool
-  default     = false
+  default     = true
   description = "Whether to enable volume encryption"
 }
 
@@ -111,14 +104,20 @@ variable "root_block_device_delete_on_termination" {
   description = "Whether the volume should be destroyed on instance termination"
 }
 
-variable "iam_role_name" {
-  type        = string
-  default     = "dlm-lifecycle-role"
-  description = "The name given to the IAM role"
+variable "terraform_tag" {
+  type = string
+  default = "true"
+  description = "Tag pair for terraform tag"
 }
 
-variable "iam_role_policy_name" {
-  type        = string
-  default     = "dlm-lifecycle-role"
-  description = "The name given to the IAM role policy"
+variable "environment" {
+  type = string
+  default = "dev"
+  description = "Tag pair for environment tag"
+}
+
+variable "prefix" {
+  type = string
+  default = ""
+  description = "Adds prefix infront of vpc name"
 }

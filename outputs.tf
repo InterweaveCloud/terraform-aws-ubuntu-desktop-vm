@@ -68,46 +68,6 @@ output "elastic_ip_id" {
   value       = aws_eip.instance_ip.id
 }
 
-output "elastic_ip_public_ip" {
-  description = "The public IP address of the elastic IP"
-  value       = aws_eip.instance_ip.public_ip
-}
-
-output "elastic_ip_private_ip" {
-  description = "The private IP address of the elastic IP"
-  value       = aws_eip.instance_ip.private_ip
-}
-
-output "elastic_ip_association_public_ip" {
-  description = "The public IP address of the elastic IP association"
-  value       = aws_eip_association.instance_eip_assoc.public_ip
-}
-
-output "elastic_ip_association_private_ip" {
-  description = "The private IP address of the elastic IP association"
-  value       = aws_eip_association.instance_eip_assoc.private_ip_address
-}
-
-output "elastic_ip_association_id" {
-  description = "The private IP address of the elastic IP association"
-  value       = aws_eip_association.instance_eip_assoc.id
-}
-
-output "iam_role_arn" {
-  description = "The arn of the IAM role"
-  value       = aws_iam_role.dlm_lifecycle_role.arn
-}
-
-output "iam_role_id" {
-  description = "The ID of the IAM role"
-  value       = aws_iam_role.dlm_lifecycle_role.id
-}
-
-output "iam_role_policy_id" {
-  description = "The ID of the IAM role policy"
-  value       = aws_iam_role_policy.dlm_lifecycle.id
-}
-
 output "lifecycle_policy_arn" {
   description = "The arn of the lifecycle policy"
   value       = aws_dlm_lifecycle_policy.instance_backup.arn

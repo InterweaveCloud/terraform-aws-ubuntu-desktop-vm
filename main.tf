@@ -2,8 +2,8 @@
 
 locals {
   tags = {
-    Terraform   = "true"
-    Environment = "dev"
+    Terraform   = "${var.terraform_tag}"
+    Environment = "${var.environment}"
   }
 }
 
@@ -15,11 +15,11 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~>3.18.1"
 
-  name = var.vpc_name
-  cidr = var.vpc_CIDR_block
+  name = "${var.prefix}-spot-instance-vpc-${var.environment}"
+  cidr = var.use_ipam_pool ? null : var.vpc_cidr_block
 
   azs            = ["${data.aws_region.current.name}a", ]
-  public_subnets = ["${var.public_subnet_CIDR_block}", ]
+  public_subnets = [var.public_subnet_cidr_block, ]
 
   tags = local.tags
 }
@@ -27,37 +27,37 @@ module "vpc" {
 // Instance Configuration
 
 resource "aws_key_pair" "instance_ssh_key" {
-  key_name   = var.instance_ssh_key_pair_name
-  public_key = file("instance-ssh-key.pub")
+  key_name   = "${module.vpc.name}-ssh-key-pair"
+  public_key = var.public_key
 }
 
 resource "aws_security_group" "instance_sg" {
-  name        = var.instance_sg_name
-  description = "Allows inbound SSH traffic from your IP address"
+  name        = "${module.vpc.name}instance_security_group"
+  description = "Allows inbound SSH traffic from specified IP addresses. Reccomended to be limited to your personal IP address."
   vpc_id      = module.vpc.vpc_id
 
   ingress {
-    description = "SSH from home IP"
+    description = "SSH from specified IP addresses. Reccomended to be limited to your personal IP address."
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${var.user_ip_address}/32"]
+    cidr_blocks = var.allowed_ingress_cidr_blocks
   }
 
   ingress {
-    description = "SSH from home IP"
+    description = "SSH from specified IP addresses. Reccomended to be limited to your personal IP address."
     from_port   = 5901
     to_port     = 5901
     protocol    = "tcp"
-    cidr_blocks = ["${var.user_ip_address}/32"]
+    cidr_blocks = var.allowed_ingress_cidr_blocks
   }
 
   ingress {
-    description = "SSH from home IP"
+    description = "SSH from specified IP addresses. Reccomended to be limited to your personal IP address."
     from_port   = 3389
     to_port     = 3389
     protocol    = "tcp"
-    cidr_blocks = ["${var.user_ip_address}/32"]
+    cidr_blocks = var.allowed_ingress_cidr_blocks
   }
 
   egress {
@@ -68,14 +68,9 @@ resource "aws_security_group" "instance_sg" {
     ipv6_cidr_blocks = ["::/0"]
   }
 
-  tags = {
-    Name = "allow_ssh_inbound"
-  }
+  tags = local.tags
 }
 
-// AMI-ID of Ubuntu Desktop 20.04 with Chrome RDP and KDE Plasma 5 -ami-0927aded7477e6e87
-// Ubuntu 22.04 AMI - ami-0f540e9f488cfa27d 
-// Public Ubuntu Desktop 22.04 AMI with Chrome RDP and KDE Plasma 5 - ami-0a00786fb4fbf6df7
 resource "aws_spot_instance_request" "instance" {
   // Spot instance request configuration
   spot_price                     = var.instance_spot_price
@@ -100,10 +95,13 @@ resource "aws_spot_instance_request" "instance" {
     delete_on_termination = var.root_block_device_delete_on_termination
   }
 
-  tags = {
+  tags = merge(
+    local.tags,
+    {
     Name                = "UbuntuDesktop"
     AutomatedEbsBackups = "true"
-  }
+  },
+  )
 }
 
 resource "aws_eip" "instance_ip" {
@@ -116,7 +114,7 @@ resource "aws_eip_association" "instance_eip_assoc" {
 }
 
 resource "aws_iam_role" "dlm_lifecycle_role" {
-  name = var.iam_role_name
+  name = "dlm-lifecycle-role"
 
   assume_role_policy = <<EOF
 {
@@ -136,7 +134,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "dlm_lifecycle" {
-  name = var.iam_role_policy_name
+  name = "${aws_iam_role.dlm_lifecycle_role.name}-policy"
   role = aws_iam_role.dlm_lifecycle_role.id
 
   policy = <<EOF
