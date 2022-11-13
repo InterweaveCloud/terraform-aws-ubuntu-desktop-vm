@@ -62,3 +62,33 @@ output "instance_private_ip" {
   description = "The private ip address of the instance"
   value = aws_spot_instance_request.instance.private_ip
 }
+
+output "elastic_ip_id" {
+  description = "The ID of the elastic IP"
+  value = aws_eip.instance_ip.id
+}
+
+output "elastic_ip_public_ip" {
+  description = "The public IP address of the elastic IP"
+  value = aws_eip.instance_ip.public_ip
+}
+
+output "elastic_ip_private_ip" {
+  description = "The private IP address of the elastic IP"
+  value = aws_eip.instance_ip.private_ip
+}
+
+output "elastic_ip_association_public_ip" {
+  description = "The public IP address of the elastic IP association"
+  value = aws_eip_association.instance_eip_assoc.public_ip
+}
+
+output "elastic_ip_association_private_ip" {
+  description = "The private IP address of the elastic IP association"
+  value = aws_eip_association.instance_eip_assoc.private_ip_address
+}
+
+output "elastic_ip_association_id" {
+  description = "The private IP address of the elastic IP association"
+  value = aws_eip_association.instance_eip_assoc.id
+}
