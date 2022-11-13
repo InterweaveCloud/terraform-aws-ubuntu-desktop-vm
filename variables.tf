@@ -116,3 +116,9 @@ variable "iam_role_name" {
   default = "dlm-lifecycle-role"
   description = "The name given to the IAM role"
 }
+
+variable "iam_role_policy_name" {
+  type = string
+  default = "dlm-lifecycle-role"
+  description = "The name given to the IAM role policy"
+}
