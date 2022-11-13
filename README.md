@@ -89,6 +89,7 @@ Currently you must SSH into the instance to apply the command but we will provid
 | [aws_spot_instance_request.instance](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/spot_instance_request#argument-reference) | resource |
 | [aws_eip.instance_ip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) | resource |
 | [aws_eip_association.instance_eip_assoc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip_association) | resource |
+| [aws_iam_role.dlm_lifecycle_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 
 ## Inputs
 | Name | Description | Type | Default | Required |
@@ -112,6 +113,7 @@ Currently you must SSH into the instance to apply the command but we will provid
 | root_block_device_throughput | Throughput to provision for a volume in mebibytes per second (MiB/s) | `number` | `125` | No |
 | root_block_device_encryption | Whether to enable volume encryption | `bool` | `false` | No |
 | root_block_device_delete_on_termination | Whether the volume should be destroyed on instance termination | `bool` | `true` | No |
+| iam_role_name | The name given to the IAM role | `string` | `dlm-lifecycle-role` | No |
 
 ## Outputs
 | Name | Description |
@@ -135,3 +137,5 @@ Currently you must SSH into the instance to apply the command but we will provid
 | elastic_ip_association_public_ip | The public IP address of the elastic IP association |
 | elastic_ip_association_private_ip | The private IP address of the elastic IP association |
 | elastic_ip_association_id | The private IP address of the elastic IP association |
+| iam_role_arn | The arn of the IAM role |
+| iam_role_id | The ID of the IAM role |
