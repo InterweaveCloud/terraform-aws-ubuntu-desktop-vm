@@ -114,3 +114,23 @@ resource "aws_eip_association" "instance_eip_assoc" {
   instance_id   = aws_spot_instance_request.instance.spot_instance_id
   allocation_id = aws_eip.instance_ip.id
 }
+
+resource "aws_iam_role" "dlm_lifecycle_role" {
+  name = "${var.iam_role_name}"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "dlm.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}

@@ -110,3 +110,9 @@ variable "root_block_device_delete_on_termination" {
   default = true
   description = "Whether the volume should be destroyed on instance termination"
 }
+
+variable "iam_role_name" {
+  type = string
+  default = "dlm-lifecycle-role"
+  description = "The name given to the IAM role"
+}
