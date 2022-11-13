@@ -90,30 +90,32 @@ Currently you must SSH into the instance to apply the command but we will provid
 | [aws_eip.instance_ip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) | resource |
 | [aws_eip_association.instance_eip_assoc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip_association) | resource |
 | [aws_iam_role.dlm_lifecycle_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy.dlm_lifecycle](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
 
 ## Inputs
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| vpc_CIDR_block | The IPv4 CIDR block of the VPC | `String` | `10.0.0.0/15` | No |
-| vpc_name | The name of the VPC | `String` | `ubuntu-desktop-vpc` | No |
-| region | The region where the infrastructure will be deployed | `string` | `us-east-1` | No |
-| public_subnet_CIDR_block | The IPv4 CIDR block of the public subnet | `string` | `10.0.0.0/28` | No |
-| instance_ssh_key_pair_name | The ssh key pair name | `string` | `instance-ssh-key` | No |
-| instance_sg_name | The instance security group name | `string` | `instance-ssh-key` | No |
+| vpc_CIDR_block | The IPv4 CIDR block of the VPC | `String` | `"10.0.0.0/15"` | No |
+| vpc_name | The name of the VPC | `String` | `"ubuntu-desktop-vpc"` | No |
+| region | The region where the infrastructure will be deployed | `string` | `"us-east-1"` | No |
+| public_subnet_CIDR_block | The IPv4 CIDR block of the public subnet | `string` | `"10.0.0.0/28"` | No |
+| instance_ssh_key_pair_name | The ssh key pair name | `string` | `"instance-ssh-key"` | No |
+| instance_sg_name | The instance security group name | `string` | `"instance-ssh-key"` | No |
 | user_ip_address | The home IP address of the user | `string` | `n/a` | Yes |
-| instance_spot_price | The maximum price to request on the spot market | `string` | `0.1888` | No |
-| instance_type | The instance type | `string` | `t3.xlarge` | No |
-| instance_interruption_behavior | Indicates Spot instance behavior when it is interrupted | `string` | `stop` | No |
+| instance_spot_price | The maximum price to request on the spot market | `string` | `"0.1888"` | No |
+| instance_type | The instance type | `string` | `"t3.xlarge"` | No |
+| instance_interruption_behavior | Indicates Spot instance behavior when it is interrupted | `string` | `"stop"` | No |
 | instance_block_duration_minutes | The required duration for the Spot instances, in minutes | `number` | `0` | No |
-| instance_ami | The ami used for the instance | `string` | `ami-0a00786fb4fbf6df7` | No |
+| instance_ami | The ami used for the instance | `string` | `"ami-0a00786fb4fbf6df7"` | No |
 | associate_public_ip_address | Whether to associate a public IP address with an instance in a VPC | `bool` | `true` | No |
 | instance_monitoring | Whether detailed monitoring is enabled for EC2 instance | `bool` | `true` | No |
 | root_block_device_size | Size of the volume in gibibytes | `number` | `32` | No |
-| root_block_device_type | The type of volume | `string` | `gp3` | No |
-| root_block_device_throughput | Throughput to provision for a volume in mebibytes per second (MiB/s) | `number` | `125` | No |
+| root_block_device_type | The type of volume | `string` | `"gp3"` | No |
+| root_block_device_throughput | Throughput to provision for a volume in mebibytes per second (MiB/s) | `number` | `"125"` | No |
 | root_block_device_encryption | Whether to enable volume encryption | `bool` | `false` | No |
 | root_block_device_delete_on_termination | Whether the volume should be destroyed on instance termination | `bool` | `true` | No |
-| iam_role_name | The name given to the IAM role | `string` | `dlm-lifecycle-role` | No |
+| iam_role_name | The name given to the IAM role | `string` | `"dlm-lifecycle-role"` | No |
+| iam_role_policy_name | The name given to the IAM role policy | `string` | `"dlm-lifecycle-role"`
 
 ## Outputs
 | Name | Description |
@@ -139,3 +141,4 @@ Currently you must SSH into the instance to apply the command but we will provid
 | elastic_ip_association_id | The private IP address of the elastic IP association |
 | iam_role_arn | The arn of the IAM role |
 | iam_role_id | The ID of the IAM role |
+| iam_role_policy_id | The ID of the IAM role policy |
