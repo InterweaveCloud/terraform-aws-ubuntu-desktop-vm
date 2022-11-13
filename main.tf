@@ -166,3 +166,37 @@ resource "aws_iam_role_policy" "dlm_lifecycle" {
 }
 EOF
 }
+
+resource "aws_dlm_lifecycle_policy" "instance_backup" {
+  description        = "Backup instance daily right before midnight and retain for 1 week"
+  execution_role_arn = aws_iam_role.dlm_lifecycle_role.arn
+  state              = "ENABLED"
+
+  policy_details {
+    resource_types = ["VOLUME"]
+
+    schedule {
+      name = "2 weeks of daily snapshots"
+
+      create_rule {
+        interval      = 24
+        interval_unit = "HOURS"
+        times         = ["23:45"]
+      }
+
+      retain_rule {
+        count = 7
+      }
+
+      tags_to_add = {
+        SnapshotCreator = "DLM"
+      }
+
+      copy_tags = false
+    }
+
+    target_tags = {
+      AutomatedEbsBackups = "true"
+    }
+  }
+}

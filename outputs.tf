@@ -107,3 +107,13 @@ output "iam_role_policy_id" {
   description = "The ID of the IAM role policy"
   value = aws_iam_role_policy.dlm_lifecycle.id
 }
+
+output "lifecycle_policy_arn" {
+  description = "The arn of the lifecycle policy"
+  value = aws_dlm_lifecycle_policy.instance_backup.arn
+}
+
+output "lifecycle_policy_id" {
+  description = "The arn of the lifecycle policy"
+  value = aws_dlm_lifecycle_policy.instance_backup.id
+}
