@@ -80,7 +80,10 @@ Currently you must SSH into the instance to apply the command but we will provid
 ```
 module "ubuntu_desktop" {
     source = "../terraform_aws_ubuntu_desktop_vm"
+
     user_ip_address = "XXX"
+    instance_ami = "XXX"
+
     tags = {
         Terraform   = "true"
         Environment = "dev"
