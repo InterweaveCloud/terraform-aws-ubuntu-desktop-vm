@@ -131,7 +131,7 @@ module "ubuntu_desktop" {
 | instance_type | Instance type to use for the instance | `string` | `"t3.xlarge"` | No |
 | instance_interruption_behavior | Indicates Spot instance behavior when it is interrupted | `string` | `"stop"` | No |
 | instance_block_duration_minutes | The required duration for the Spot instances, in minutes. This value must be a multiple of 60 (60, 120, 180, 240, 300, or 360). The duration period starts as soon as your Spot instance receives its instance ID. At the end of the duration period, Amazon EC2 marks the Spot instance for termination and provides a Spot instance termination notice, which gives the instance a two-minute warning before it terminates. Note that you can't specify an Availability Zone group or a launch group if you specify a duration | `number` | `0` | No |
-| instance_ami | The ami used for the instance | `string` | `"ami-0a00786fb4fbf6df7"` | No |
+| instance_ami | The ami used for the instance | `string` | `N/A` | Yes |
 | associate_public_ip_address | Whether to associate a public IP address with an instance in a VPC | `bool` | `true` | No |
 | instance_monitoring | Whether detailed monitoring is enabled for EC2 instance | `bool` | `true` | No |
 | root_block_device_size | Size of the volume in gibibytes | `number` | `32` | No |

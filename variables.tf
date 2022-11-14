@@ -58,7 +58,6 @@ variable "instance_block_duration_minutes" {
 
 variable "instance_ami" {
   type        = string
-  default     = "ami-0a00786fb4fbf6df7"
   description = "AMI to use for the instance"
 }
 
