@@ -106,7 +106,7 @@ variable "root_block_device_delete_on_termination" {
 variable "terraform_tag_value" {
   type        = string
   default     = "true"
-  description = "Value for tag pair"
+  description = "Value for terraform tag"
 }
 
 variable "environment" {
