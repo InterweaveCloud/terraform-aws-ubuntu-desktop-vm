@@ -98,9 +98,9 @@ resource "aws_spot_instance_request" "instance" {
   tags = merge(
     local.tags,
     {
-    Name                = "UbuntuDesktop"
-    AutomatedEbsBackups = "true"
-  },
+      Name                = "UbuntuDesktop"
+      AutomatedEbsBackups = "true"
+    },
   )
 }
 

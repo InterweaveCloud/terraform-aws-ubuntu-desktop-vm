@@ -23,7 +23,7 @@ variable "public_subnet_cidr_block" {
 }
 
 variable "public_key" {
-  type = string
+  type        = string
   description = "The public key material"
 }
 
@@ -104,19 +104,19 @@ variable "root_block_device_delete_on_termination" {
 }
 
 variable "terraform_tag" {
-  type = string
-  default = "true"
+  type        = string
+  default     = "true"
   description = "Tag pair for terraform tag"
 }
 
 variable "environment" {
-  type = string
-  default = "dev"
+  type        = string
+  default     = "dev"
   description = "Tag pair for environment tag"
 }
 
 variable "prefix" {
-  type = string
-  default = ""
+  type        = string
+  default     = ""
   description = "Adds prefix infront of vpc name"
 }
