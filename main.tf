@@ -2,7 +2,7 @@
 
 locals {
   tags = {
-    Terraform   = "${var.terraform_tag}"
+    Terraform   = "${var.terraform_tag_value}"
     Environment = "${var.environment}"
   }
 }
@@ -21,7 +21,10 @@ module "vpc" {
   azs            = ["${data.aws_region.current.name}a", ]
   public_subnets = [var.public_subnet_cidr_block, ]
 
-  tags = local.tags
+  tags = merge(
+    local.tags,
+    var.tags
+  )
 }
 
 // Instance Configuration
@@ -33,11 +36,11 @@ resource "aws_key_pair" "instance_ssh_key" {
 
 resource "aws_security_group" "instance_sg" {
   name        = "${module.vpc.name}instance_security_group"
-  description = "Allows inbound SSH traffic from specified IP addresses. Reccomended to be limited to your personal IP address."
+  description = "Allows SSH, VNC and RDP access from specific IP Addresses"
   vpc_id      = module.vpc.vpc_id
 
   ingress {
-    description = "SSH from specified IP addresses. Reccomended to be limited to your personal IP address."
+    description = "SSH from specified IP addresses."
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -45,7 +48,7 @@ resource "aws_security_group" "instance_sg" {
   }
 
   ingress {
-    description = "SSH from specified IP addresses. Reccomended to be limited to your personal IP address."
+    description = "SSH from specified IP addresses."
     from_port   = 5901
     to_port     = 5901
     protocol    = "tcp"
@@ -53,7 +56,7 @@ resource "aws_security_group" "instance_sg" {
   }
 
   ingress {
-    description = "SSH from specified IP addresses. Reccomended to be limited to your personal IP address."
+    description = "SSH from specified IP addresses."
     from_port   = 3389
     to_port     = 3389
     protocol    = "tcp"
@@ -68,7 +71,10 @@ resource "aws_security_group" "instance_sg" {
     ipv6_cidr_blocks = ["::/0"]
   }
 
-  tags = local.tags
+  tags = merge(
+    local.tags,
+    var.tags
+  )
 }
 
 resource "aws_spot_instance_request" "instance" {
@@ -97,8 +103,9 @@ resource "aws_spot_instance_request" "instance" {
 
   tags = merge(
     local.tags,
+    var.tags,
     {
-      Name                = "UbuntuDesktop"
+      Name                = "${var.prefix}-spot-instance-${var.environment}"
       AutomatedEbsBackups = "true"
     },
   )
@@ -114,7 +121,7 @@ resource "aws_eip_association" "instance_eip_assoc" {
 }
 
 resource "aws_iam_role" "dlm_lifecycle_role" {
-  name = "dlm-lifecycle-role"
+  name = "${var.prefix}-dlm-lifecycle-role-${var.environment}"
 
   assume_role_policy = <<EOF
 {

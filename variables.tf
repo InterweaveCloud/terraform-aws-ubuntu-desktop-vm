@@ -103,20 +103,26 @@ variable "root_block_device_delete_on_termination" {
   description = "Whether the volume should be destroyed on instance termination"
 }
 
-variable "terraform_tag" {
+variable "terraform_tag_value" {
   type        = string
   default     = "true"
-  description = "Tag pair for terraform tag"
+  description = "Value for tag pair"
 }
 
 variable "environment" {
   type        = string
   default     = "dev"
-  description = "Tag pair for environment tag"
+  description = "String to affix to any resource names and add to tags"
 }
 
 variable "prefix" {
   type        = string
   default     = ""
-  description = "Adds prefix infront of vpc name"
+  description = "string to prefix to resource names to make them easier to identify within the console"
+}
+
+variable "tags" {
+  type        = map(any)
+  default     = {}
+  description = "Tags to add to all created resources"
 }
