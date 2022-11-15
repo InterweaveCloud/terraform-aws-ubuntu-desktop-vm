@@ -103,12 +103,6 @@ variable "root_block_device_delete_on_termination" {
   description = "Whether the volume should be destroyed on instance termination"
 }
 
-variable "terraform_tag_value" {
-  type        = string
-  default     = "true"
-  description = "Value for terraform tag"
-}
-
 variable "environment" {
   type        = string
   default     = "dev"
