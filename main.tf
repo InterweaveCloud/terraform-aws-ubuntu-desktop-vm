@@ -2,10 +2,10 @@
 
 locals {
   tags = merge(
-    var.tags, 
+    var.tags,
     {
-    Environment = "${var.environment}"
-  }
+      Environment = var.environment
+    }
   )
 }
 
@@ -20,8 +20,8 @@ module "vpc" {
   name = "${var.prefix}-spot-instance-vpc-${var.environment}"
   cidr = var.vpc_cidr_block
 
-  azs            = ["${data.aws_region.current.name}a", ]
-  public_subnets = [var.public_subnet_cidr_block, ]
+  azs            = ["${data.aws_region.current.name}a"]
+  public_subnets = [var.public_subnet_cidr_block]
 
   tags = local.tags
 }
