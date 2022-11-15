@@ -1,10 +1,12 @@
 // Define Local Vars
 
 locals {
-  tags = {
-    Terraform   = "${var.terraform_tag_value}"
+  tags = merge(
+    var.tags, 
+    {
     Environment = "${var.environment}"
   }
+  )
 }
 
 data "aws_region" "current" {}
@@ -21,10 +23,7 @@ module "vpc" {
   azs            = ["${data.aws_region.current.name}a", ]
   public_subnets = [var.public_subnet_cidr_block, ]
 
-  tags = merge(
-    local.tags,
-    var.tags
-  )
+  tags = local.tags
 }
 
 // Instance Configuration
@@ -71,10 +70,7 @@ resource "aws_security_group" "instance_sg" {
     ipv6_cidr_blocks = ["::/0"]
   }
 
-  tags = merge(
-    local.tags,
-    var.tags
-  )
+  tags = local.tags
 }
 
 resource "aws_spot_instance_request" "instance" {
@@ -103,7 +99,6 @@ resource "aws_spot_instance_request" "instance" {
 
   tags = merge(
     local.tags,
-    var.tags,
     {
       Name                = "${var.prefix}-spot-instance-${var.environment}"
       AutomatedEbsBackups = "true"
