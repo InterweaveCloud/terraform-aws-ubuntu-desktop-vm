@@ -18,7 +18,7 @@ module "vpc" {
   version = "~>3.18.1"
 
   name = "${var.prefix}-spot-instance-vpc-${var.environment}"
-  cidr = var.use_ipam_pool ? null : var.vpc_cidr_block
+  cidr = var.vpc_cidr_block
 
   azs            = ["${data.aws_region.current.name}a", ]
   public_subnets = [var.public_subnet_cidr_block, ]

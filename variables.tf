@@ -4,12 +4,6 @@ variable "vpc_cidr_block" {
   description = "The IPv4 CIDR block of the VPC"
 }
 
-variable "use_ipam_pool" {
-  description = "Determines whether IPAM pool is used for CIDR allocation"
-  type        = bool
-  default     = false
-}
-
 variable "region" {
   type        = string
   default     = "us-east-1"

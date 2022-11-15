@@ -142,7 +142,6 @@ module "ubuntu_desktop" {
 | root_block_device_throughput | Throughput to provision for a volume in mebibytes per second (MiB/s) | `number` | `"125"` | No |
 | root_block_device_encryption | Whether to enable volume encryption | `bool` | `true` | No |
 | root_block_device_delete_on_termination | Whether the volume should be destroyed on instance termination | `bool` | `true` | No |
-| use_ipam_pool | Determines whether IPAM pool is used for CIDR allocation | `bool` | `false` | No |
 | public_key | The public key used for the ssh key pair | `string` | `n/a` | Yes |
 | environment | String to affix to any resource names and add to tags | `string` | `"dev"` | No |
 | prefix | string to prefix to resource names to make them easier to identify within the console | `string` | `""` | No |
