@@ -29,12 +29,12 @@ module "vpc" {
 // Instance Configuration
 
 resource "aws_key_pair" "instance_ssh_key" {
-  key_name   = "${module.vpc.name}-ssh-key-pair"
+  key_name   = "${var.prefix}-ssh-key-pair-${var.environment}"
   public_key = var.public_key
 }
 
 resource "aws_security_group" "instance_sg" {
-  name        = "${module.vpc.name}instance_security_group"
+  name        = "${var.prefix}-instance-security-group-${var.environment}"
   description = "Allows SSH, VNC and RDP access from specific IP Addresses"
   vpc_id      = module.vpc.vpc_id
 
@@ -136,7 +136,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "dlm_lifecycle" {
-  name = "${aws_iam_role.dlm_lifecycle_role.name}-policy"
+  name = "${var.prefix}-dlm-lifecycle-policy-${var.environment}"
   role = aws_iam_role.dlm_lifecycle_role.id
 
   policy = <<EOF
