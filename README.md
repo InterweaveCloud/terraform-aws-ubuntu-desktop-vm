@@ -93,76 +93,79 @@ module "ubuntu_desktop" {
 ```
 
 ## Requirements
+
 | Name | Version |
 |------|---------|
-| aws | >= 3.73 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~>4.38.0 |
 
 ## Providers
+
 | Name | Version |
 |------|---------|
-| aws | >=3.73 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.38.0 |
 
 ## Modules
-[AWS VPC Terraform Module](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest)
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | ~>3.18.1 |
 
 ## Resources
+
 | Name | Type |
 |------|------|
-| [aws_internet_gateway.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway) | resource |
-| [aws_route.public_internet_gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
-| [aws_route_table.public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) | resource |
-| [aws_route_table_association.public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association) | resource |
-| [aws_subnet.public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
-| [aws_vpc.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) | resource |
-| [aws_key_pair.instance_ssh_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
-| [aws_security_group.instance_sg](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
-| [aws_spot_instance_request.instance](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/spot_instance_request#argument-reference) | resource |
+| [aws_dlm_lifecycle_policy.instance_backup](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dlm_lifecycle_policy) | resource |
 | [aws_eip.instance_ip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) | resource |
 | [aws_eip_association.instance_eip_assoc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip_association) | resource |
 | [aws_iam_role.dlm_lifecycle_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy.dlm_lifecycle](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
-| [aws_dlm_lifecycle_policy.instance_backup](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dlm_lifecycle_policy) | resource |
+| [aws_key_pair.instance_ssh_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
+| [aws_security_group.instance_sg](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_spot_instance_request.instance](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/spot_instance_request) | resource |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
+
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| vpc_cidr_block | The IPv4 CIDR block of the VPC | `string` | `"10.0.0.0/26"` | No |
-| region | The region where the infrastructure will be deployed | `string` | `"us-east-1"` | No |
-| public_subnet_cidr_block | The IPv4 CIDR block of the public subnet | `string` | `"10.0.0.0/28"` | No |
-| allowed_ingress_cidr_blocks | List of IP addresses allowed access to instance | `list(string)` | `n/a` | Yes |
-| instance_spot_price | The maximum price to request on the spot market | `string` | `"0.1888"` | No |
-| instance_type | Instance type to use for the instance | `string` | `"t3.xlarge"` | No |
-| instance_interruption_behavior | Indicates Spot instance behavior when it is interrupted | `string` | `"stop"` | No |
-| instance_block_duration_minutes | The required duration for the Spot instances, in minutes. This value must be a multiple of 60 (60, 120, 180, 240, 300, or 360). The duration period starts as soon as your Spot instance receives its instance ID. At the end of the duration period, Amazon EC2 marks the Spot instance for termination and provides a Spot instance termination notice, which gives the instance a two-minute warning before it terminates. Note that you can't specify an Availability Zone group or a launch group if you specify a duration | `number` | `0` | No |
-| instance_ami | The ami used for the instance | `string` | `N/A` | Yes |
-| associate_public_ip_address | Whether to associate a public IP address with an instance in a VPC | `bool` | `true` | No |
-| instance_monitoring | Whether detailed monitoring is enabled for EC2 instance | `bool` | `true` | No |
-| root_block_device_size | Size of the volume in gibibytes | `number` | `32` | No |
-| root_block_device_type | The type of volume | `string` | `"gp3"` | No |
-| root_block_device_throughput | Throughput to provision for a volume in mebibytes per second (MiB/s) | `number` | `"125"` | No |
-| root_block_device_encryption | Whether to enable volume encryption | `bool` | `true` | No |
-| root_block_device_delete_on_termination | Whether the volume should be destroyed on instance termination | `bool` | `true` | No |
-| public_key | The public key used for the ssh key pair | `string` | `n/a` | Yes |
-| environment | String to affix to any resource names and add to tags | `string` | `"dev"` | No |
-| prefix | string to prefix to resource names to make them easier to identify within the console | `string` | `""` | No |
-| tags | Tags to add to all created resources | `map(any)` | `{}` | No |
+| <a name="input_allowed_ingress_cidr_blocks"></a> [allowed\_ingress\_cidr\_blocks](#input\_allowed\_ingress\_cidr\_blocks) | List of IP addresses allowed access to instance | `list(string)` | n/a | yes |
+| <a name="input_associate_public_ip_address"></a> [associate\_public\_ip\_address](#input\_associate\_public\_ip\_address) | Whether to associate a public IP address with an instance in a VPC | `bool` | `true` | no |
+| <a name="input_environment"></a> [environment](#input\_environment) | String to affix to any resource names and add to tags | `string` | `"dev"` | no |
+| <a name="input_instance_ami"></a> [instance\_ami](#input\_instance\_ami) | AMI to use for the instance | `string` | n/a | yes |
+| <a name="input_instance_block_duration_minutes"></a> [instance\_block\_duration\_minutes](#input\_instance\_block\_duration\_minutes) | The required duration for the Spot instances, in minutes. This value must be a multiple of 60 (60, 120, 180, 240, 300, or 360). The duration period starts as soon as your Spot instance receives its instance ID. At the end of the duration period, Amazon EC2 marks the Spot instance for termination and provides a Spot instance termination notice, which gives the instance a two-minute warning before it terminates. Note that you can't specify an Availability Zone group or a launch group if you specify a duration. | `number` | `0` | no |
+| <a name="input_instance_interruption_behavior"></a> [instance\_interruption\_behavior](#input\_instance\_interruption\_behavior) | Indicates Spot instance behavior when it is interrupted | `string` | `"stop"` | no |
+| <a name="input_instance_monitoring"></a> [instance\_monitoring](#input\_instance\_monitoring) | Whether detailed monitoring is enabled for EC2 instance | `bool` | `true` | no |
+| <a name="input_instance_spot_price"></a> [instance\_spot\_price](#input\_instance\_spot\_price) | The maximum price to request on the spot market | `string` | `null` | no |
+| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Instance type to use for the instance. | `string` | `"t3.xlarge"` | no |
+| <a name="input_prefix"></a> [prefix](#input\_prefix) | string to prefix to resource names to make them easier to identify within the console | `string` | `""` | no |
+| <a name="input_public_key"></a> [public\_key](#input\_public\_key) | The public key material | `string` | n/a | yes |
+| <a name="input_public_subnet_cidr_block"></a> [public\_subnet\_cidr\_block](#input\_public\_subnet\_cidr\_block) | The IPv4 CIDR block of the public subnet | `string` | `"10.0.0.0/28"` | no |
+| <a name="input_region"></a> [region](#input\_region) | The region where the infrastructure will be deployed | `string` | `"us-east-1"` | no |
+| <a name="input_root_block_device_delete_on_termination"></a> [root\_block\_device\_delete\_on\_termination](#input\_root\_block\_device\_delete\_on\_termination) | Whether the volume should be destroyed on instance termination | `bool` | `true` | no |
+| <a name="input_root_block_device_encryption"></a> [root\_block\_device\_encryption](#input\_root\_block\_device\_encryption) | Whether to enable volume encryption | `bool` | `true` | no |
+| <a name="input_root_block_device_size"></a> [root\_block\_device\_size](#input\_root\_block\_device\_size) | Size of the volume in gibibytes | `number` | `32` | no |
+| <a name="input_root_block_device_throughput"></a> [root\_block\_device\_throughput](#input\_root\_block\_device\_throughput) | Throughput to provision for a volume in mebibytes per second (MiB/s) | `number` | `125` | no |
+| <a name="input_root_block_device_type"></a> [root\_block\_device\_type](#input\_root\_block\_device\_type) | The type of volume | `string` | `"gp3"` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags to add to all created resources | `map(any)` | `{}` | no |
+| <a name="input_vpc_cidr_block"></a> [vpc\_cidr\_block](#input\_vpc\_cidr\_block) | The IPv4 CIDR block of the VPC | `string` | `"10.0.0.0/26"` | no |
 
 ## Outputs
+
 | Name | Description |
 |------|-------------|
-| vpc_id | The ID of the VPC |
-| vpc_arn | The arn of the VPC |
-| public_subnet_id | The public subnet ID |
-| public_subnet_arn | The public subnet arn |
-| public_subnet_cidr_block | The public subnet CIDR block |
-| instance_ssh_key_arn | The arn of the instance ssh key pair |
-| instance_ssh_key_id | The ID of the instance ssh key pair |
-| instance_sg_arn | The arn of the instance security group |
-| instance_sg_id | The ID of the instance security group |
-| instance_arn | The arn of the instance |
-| instance_id | The ID of the instance |
-| instance_public_ip | The public ip address of the instance |
-| instance_private_ip | The private ip address of the instance |
-| elastic_ip_id | The ID of the elastic IP |
-| lifecycle_policy_arn | The arn of the lifecycle policy |
-| lifecycle_policy_id | The arn of the lifecycle policy |
+| <a name="output_elastic_ip_id"></a> [elastic\_ip\_id](#output\_elastic\_ip\_id) | The ID of the elastic IP |
+| <a name="output_instance_arn"></a> [instance\_arn](#output\_instance\_arn) | The arn of the instance |
+| <a name="output_instance_id"></a> [instance\_id](#output\_instance\_id) | The ID of the instance |
+| <a name="output_instance_private_ip"></a> [instance\_private\_ip](#output\_instance\_private\_ip) | The private ip address of the instance |
+| <a name="output_instance_public_ip"></a> [instance\_public\_ip](#output\_instance\_public\_ip) | The public ip address of the instance |
+| <a name="output_instance_sg_arn"></a> [instance\_sg\_arn](#output\_instance\_sg\_arn) | The arn of the instance security group |
+| <a name="output_instance_sg_id"></a> [instance\_sg\_id](#output\_instance\_sg\_id) | The ID of the instance security group |
+| <a name="output_instance_ssh_key_arn"></a> [instance\_ssh\_key\_arn](#output\_instance\_ssh\_key\_arn) | The arn of the instance ssh key pair |
+| <a name="output_instance_ssh_key_id"></a> [instance\_ssh\_key\_id](#output\_instance\_ssh\_key\_id) | The ID of the instance ssh key pair |
+| <a name="output_lifecycle_policy_arn"></a> [lifecycle\_policy\_arn](#output\_lifecycle\_policy\_arn) | The arn of the lifecycle policy |
+| <a name="output_lifecycle_policy_id"></a> [lifecycle\_policy\_id](#output\_lifecycle\_policy\_id) | The arn of the lifecycle policy |
+| <a name="output_public_subnet_arn"></a> [public\_subnet\_arn](#output\_public\_subnet\_arn) | The public subnet arn |
+| <a name="output_public_subnet_cidr_block"></a> [public\_subnet\_cidr\_block](#output\_public\_subnet\_cidr\_block) | The public subnet CIDR block |
+| <a name="output_public_subnet_id"></a> [public\_subnet\_id](#output\_public\_subnet\_id) | The public subnet ID |
+| <a name="output_vpc_arn"></a> [vpc\_arn](#output\_vpc\_arn) | The arn of the VPC |
+| <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | The ID of the VPC |
