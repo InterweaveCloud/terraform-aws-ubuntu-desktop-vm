@@ -70,11 +70,38 @@ From here click `Begin`, `Next` and `Authorise`.
 
 Currently you must SSH into the instance to apply the command but we will provide a remote exec in a future release.
 
+## Style Guidelines
+
+### Naming Convention
+
+Throughout the module, the naming convention used is as follows:
+- For Terraform resource names, the names consist of lowercase characters and _ to represent spaces in the name.
+- For AWS resource names, the names consist of lowercase characters and - to represent spaces in the name, with the <a name="input_prefix"></a> [prefix](#input\_prefix) variable attached to the beginning of the name and the <a name="input_environment"></a> [environment](#input\_environment).
+
+## Features
+
+### Best Practices
+
+#### Security
+
+- Spot instance security group only allows [SSH](https://www.ucl.ac.uk/isd/what-ssh-and-how-do-i-use-it#:~:text=SSH%20or%20Secure%20Shell%20is,web%20pages)%20and%20share%20data.), [VNC](https://discover.realvnc.com/how-to-use-vnc-connect-remote-desktop-software#:~:text=VNC%20stands%20for%20Virtual%20Network,right%20in%20front%20of%20it.) and [RDP](https://www.techtarget.com/searchenterprisedesktop/definition/Remote-Desktop-Protocol-RDP#:~:text=What%20is%20remote%20desktop%20protocol,their%20physical%20work%20desktop%20computers.) inbound access from IP addresses specified by the user. This ensures that only specific IP addresses are allowed access. 
+- Spot instance security group allows full outbound access so that the instance has full access to the internet.
+- A key pair is generated to allow authentication when accessing the instance using port 22(SSH).
+
+#### Instance Configuration
+
+- A DLM lifecycle policy which backups the instance daily before midnight and snapshots are retained for 1 week. This is ensures that in the event that the spot instance is taken down, a new spot instance can be set up more easily.
+- An elastic IP address is allows you to remap your IP address onto another instance in the event that the spot instance is taken down, making the process of setting up the new instance much easier. 
+
 ## Resource Material
 
 [Ubuntu Blog on Ubuntu Desktop on GCP](https://ubuntu.com/blog/launch-ubuntu-desktop-on-google-cloud)  
 [Guide to install KDE Plasma 5](https://www.tecmint.com/install-kde-plasma-5-in-linux/)
 [Guide to generate SSH keys](https://docs.oracle.com/en/cloud/cloud-at-customer/occ-get-started/generate-ssh-key-pair.html)
+
+## Pre-requisites
+
+To be able to use this module you will need to have [AWS CLI](https://aws.amazon.com/cli/) installed on your local machine. An installation guide can be found [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
 ## Usage
 ```
@@ -169,3 +196,18 @@ module "ubuntu_desktop" {
 | <a name="output_public_subnet_id"></a> [public\_subnet\_id](#output\_public\_subnet\_id) | The public subnet ID |
 | <a name="output_vpc_arn"></a> [vpc\_arn](#output\_vpc\_arn) | The arn of the VPC |
 | <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | The ID of the VPC |
+
+## Contributing
+
+### Bug Reports & Feature Requests
+
+Please use the [issue tracker](https://github.com/InterweaveCloud/terraform_aws_ubuntu_desktop_vm/issues) to report any bugs or file feature requests.
+
+## Contributors
+| Name | Role |
+|------|------|
+| [Faizan Raza](https://www.linkedin.com/in/faizan-raza-997808206/) | Lead Developer |
+| [Muhammad Hasan](https://www.linkedin.com/in/muhammad-hasan-b2553221a/) | Developer |
+
+## Resources Used
+[Terraform Docs](https://terraform-docs.io/) used for generating documentation.
