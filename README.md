@@ -90,7 +90,7 @@ Throughout the module, the naming convention used is as follows:
 
 #### Instance Configuration
 
-- A DLM lifecycle policy which backups the instance daily before midnight and snapshots are retained for 1 week. This is ensures that in the event that the spot instance is taken down, a new spot instance can be set up more easily.
+- A DLM lifecycle policy which backups the instance daily before midnight and snapshots are retained for 1 week. This is ensures that in the event that the spot instance is taken down, you can use the snapshots of the EBS to recover your files.
 - An elastic IP address is allows you to remap your IP address onto another instance in the event that the spot instance is taken down, making the process of setting up the new instance much easier. 
 
 ## Resource Material
