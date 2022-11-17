@@ -82,6 +82,11 @@ Throughout the module, the naming convention used is as follows:
 
 ### Best Practices
 
+#### Networking
+
+- This is a single layer architecture so only one availability zone and one subnet is created to host the virtual machine.
+- An internet gateway with the appropriate routes are created to enable that the virtual machine has full access to the internet.
+
 #### Security
 
 - Spot instance security group only allows [SSH](https://www.ucl.ac.uk/isd/what-ssh-and-how-do-i-use-it#:~:text=SSH%20or%20Secure%20Shell%20is,web%20pages)%20and%20share%20data.), [VNC](https://discover.realvnc.com/how-to-use-vnc-connect-remote-desktop-software#:~:text=VNC%20stands%20for%20Virtual%20Network,right%20in%20front%20of%20it.) and [RDP](https://www.techtarget.com/searchenterprisedesktop/definition/Remote-Desktop-Protocol-RDP#:~:text=What%20is%20remote%20desktop%20protocol,their%20physical%20work%20desktop%20computers.) inbound access from IP addresses specified by the user. This ensures that only specific IP addresses are allowed access. 
@@ -90,8 +95,13 @@ Throughout the module, the naming convention used is as follows:
 
 #### Instance Configuration
 
-- A DLM lifecycle policy which backups the instance daily before midnight and snapshots are retained for 1 week. This is ensures that in the event that the spot instance is taken down, you can use the snapshots of the EBS to recover your files.
 - An elastic IP address is allows you to remap your IP address onto another instance in the event that the spot instance is taken down, making the process of setting up the new instance much easier. 
+
+#### EBS Backup
+
+- A Data Lifecycle Manager lifecycle policy is created which backups the instance daily before midnight and snapshots are retained for 1 week. This is ensures that in the event that the spot instance is taken down, you can use the snapshots of the EBS to recover your files.
+- An IAM role and policy is created which allows the DLM lifecycle policy to create and delete snapshots. It also allows DLM read access to instances,volumes and snapshots on EC2.
+- Snapshots are taken by the Data Lifecycle Manager and are stored in an S3 bucket managed by DLM.
 
 ## Resource Material
 
