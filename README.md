@@ -1,5 +1,9 @@
 # AWS Ubuntu Desktop VM Module
 
+## Diagram
+
+![image](https://github.com/InterweaveCloud/terraform_aws_ubuntu_desktop_vm/blob/TER-59-modify-readme-so-it-is-suitable-for-os-consumption/Architecture%20Diagram.png?raw=true)
+
 ## Overview
 
 Generally, we have faced several issues around development environments with a diverse team. These include:
