@@ -1,5 +1,9 @@
 # AWS Ubuntu Desktop VM Module
 
+## Diagram
+
+![Architecture Diagram](https://user-images.githubusercontent.com/99090760/202705789-7da0cf54-3f10-4e53-b667-13f7fb146944.png)
+
 ## Overview
 
 Generally, we have faced several issues around development environments with a diverse team. These include:
@@ -69,6 +73,28 @@ To set up Chrome RDP, go to the [Chrome RDP Website](https://remotedesktop.googl
 From here click `Begin`, `Next` and `Authorise`.
 
 Currently you must SSH into the instance to apply the command but we will provide a remote exec in a future release.
+
+## Features
+
+### Best Practices
+
+#### Networking
+
+- Creates a new independent VPC with a public subnet to remove dependency on pre-existing VPCs.
+
+#### Security
+
+- Spot instance security group only allows [SSH](https://www.ucl.ac.uk/isd/what-ssh-and-how-do-i-use-it#:~:text=SSH%20or%20Secure%20Shell%20is,web%20pages), [VNC](https://discover.realvnc.com/how-to-use-vnc-connect-remote-desktop-software#:~:text=VNC%20stands%20for%20Virtual%20Network,right%20in%20front%20of%20it.) and [RDP](https://www.techtarget.com/searchenterprisedesktop/definition/Remote-Desktop-Protocol-RDP#:~:text=What%20is%20remote%20desktop%20protocol,their%20physical%20work%20desktop%20computers.) inbound access from IP addresses specified by the user. 
+- A key pair is created using a public key provided by the user to allow authentication when accessing the instance using port 22(SSH).
+
+#### Instance Configuration
+
+- An elastic IP address is provisioned to preserve the public IP address of the instance between stops and starts. Note: The elastic IP address does not incur charges while the instance is running but will incur charges when stopped.
+
+#### EBS Backup
+
+- A Data Lifecycle Manager lifecycle policy is created which backups the instance daily before midnight and snapshots are retained for 1 week. In the event of catastrophic failure or loss of data, these snapshots can be used to restore EC2 instances. Instances to be managed by this policy are identified by the following tag: {AutomatedEbsBackups = true}.
+- Snapshots are taken by the Data Lifecycle Manager.
 
 ## Resource Material
 
@@ -169,3 +195,28 @@ module "ubuntu_desktop" {
 | <a name="output_public_subnet_id"></a> [public\_subnet\_id](#output\_public\_subnet\_id) | The public subnet ID |
 | <a name="output_vpc_arn"></a> [vpc\_arn](#output\_vpc\_arn) | The arn of the VPC |
 | <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | The ID of the VPC |
+
+## Contributing
+
+### Bug Reports & Feature Requests
+
+Please use the [issue tracker](https://github.com/InterweaveCloud/terraform_aws_ubuntu_desktop_vm/issues) to report any bugs or file feature requests.
+
+## Contributors
+| Name | Role |
+|------|------|
+| [Muhammad Hasan](https://www.linkedin.com/in/muhammad-hasan-b2553221a/) | Lead Developer |
+| [Faizan Raza](https://www.linkedin.com/in/faizan-raza-997808206/) | Developer |
+
+## Style Guidelines
+
+### Naming Convention
+
+Throughout the module, the naming convention used is as follows:
+- For Terraform resource names, the names consist of lowercase characters and _ to represent spaces in the name.
+- For AWS resource names, the names consist of lowercase characters and - to represent spaces in the name, with the <a name="input_prefix"></a> [prefix](#input\_prefix) variable attached to the beginning of the name and the <a name="input_environment"></a> [environment](#input\_environment).
+
+## Resources Used
+[Terraform Docs](https://terraform-docs.io/) used for generating documentation.
+
+[def]: terraform-aws-ubuntu-desktop-vm/Architecture-Diagram.png
