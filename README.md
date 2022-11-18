@@ -102,10 +102,6 @@ Currently you must SSH into the instance to apply the command but we will provid
 [Guide to install KDE Plasma 5](https://www.tecmint.com/install-kde-plasma-5-in-linux/)
 [Guide to generate SSH keys](https://docs.oracle.com/en/cloud/cloud-at-customer/occ-get-started/generate-ssh-key-pair.html)
 
-## Pre-requisites
-
-To be able to use this module you will need to have [AWS CLI](https://aws.amazon.com/cli/) installed on your local machine. An installation guide can be found [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
-
 ## Usage
 ```
 module "ubuntu_desktop" {
