@@ -93,7 +93,7 @@ Currently you must SSH into the instance to apply the command but we will provid
 
 #### EBS Backup
 
-- A Data Lifecycle Manager lifecycle policy is created which backups the instance daily before midnight and snapshots are retained for 1 week. In the event of catastrophic failure or loss of data, these snapshots can be used to restore EC2 instances. Instances to be managed by this policy are identified by the following tag: {AutomatedEbsBackups = true}.
+- A Data Lifecycle Manager lifecycle policy is created which backs up the instance daily before midnight and snapshots are retained for 1 week. In the event of catastrophic failure or loss of data, these snapshots can be used to restore EC2 instances. Instances to be managed by this policy are identified by the following tag: `{AutomatedEbsBackups = true}`.
 - Snapshots are taken by the Data Lifecycle Manager.
 
 ## Resource Material
@@ -202,7 +202,7 @@ module "ubuntu_desktop" {
 
 Please use the [issue tracker](https://github.com/InterweaveCloud/terraform_aws_ubuntu_desktop_vm/issues) to report any bugs or file feature requests.
 
-## Contributors
+### Contributors
 | Name | Role |
 |------|------|
 | [Muhammad Hasan](https://www.linkedin.com/in/muhammad-hasan-b2553221a/) | Lead Developer |
