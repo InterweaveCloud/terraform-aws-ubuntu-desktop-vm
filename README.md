@@ -80,23 +80,21 @@ Currently you must SSH into the instance to apply the command but we will provid
 
 #### Networking
 
-- This is a single layer architecture so only one availability zone and one subnet is created to host the virtual machine.
-- An internet gateway with the appropriate routes are created to enable that the virtual machine has full access to the internet.
+- Creates a new independent VPC with a public subnet to remove dependency on pre-existing VPCs.
 
 #### Security
 
-- Spot instance security group only allows [SSH](https://www.ucl.ac.uk/isd/what-ssh-and-how-do-i-use-it#:~:text=SSH%20or%20Secure%20Shell%20is,web%20pages)%20and%20share%20data.), [VNC](https://discover.realvnc.com/how-to-use-vnc-connect-remote-desktop-software#:~:text=VNC%20stands%20for%20Virtual%20Network,right%20in%20front%20of%20it.) and [RDP](https://www.techtarget.com/searchenterprisedesktop/definition/Remote-Desktop-Protocol-RDP#:~:text=What%20is%20remote%20desktop%20protocol,their%20physical%20work%20desktop%20computers.) inbound access from IP addresses specified by the user. 
-- A key pair is generated to allow authentication when accessing the instance using port 22(SSH).
+- Spot instance security group only allows [SSH](https://www.ucl.ac.uk/isd/what-ssh-and-how-do-i-use-it#:~:text=SSH%20or%20Secure%20Shell%20is,web%20pages), [VNC](https://discover.realvnc.com/how-to-use-vnc-connect-remote-desktop-software#:~:text=VNC%20stands%20for%20Virtual%20Network,right%20in%20front%20of%20it.) and [RDP](https://www.techtarget.com/searchenterprisedesktop/definition/Remote-Desktop-Protocol-RDP#:~:text=What%20is%20remote%20desktop%20protocol,their%20physical%20work%20desktop%20computers.) inbound access from IP addresses specified by the user. 
+- A key pair is created using a public key provided by the user to allow authentication when accessing the instance using port 22(SSH).
 
 #### Instance Configuration
 
-- An elastic IP address is allows you to remap your IP address onto another instance in the event that the spot instance is taken down, making the process of setting up the new instance much easier. 
+- An elastic IP address is provisioned to preserve the public IP address of the instance between stops and starts. Note: The elastic IP address does not incur charges while the instance is running but will incur charges when stopped.
 
 #### EBS Backup
 
-- A Data Lifecycle Manager lifecycle policy is created which backups the instance daily before midnight and snapshots are retained for 1 week. This is ensures that in the event that the spot instance is taken down, you can use the snapshots of the EBS to recover your files.
-- An IAM role and policy is created which allows the DLM lifecycle policy to create and delete snapshots. It also allows DLM read access to instances,volumes and snapshots on EC2.
-- Snapshots are taken by the Data Lifecycle Manager and are stored in an S3 bucket managed by DLM.
+- A Data Lifecycle Manager lifecycle policy is created which backups the instance daily before midnight and snapshots are retained for 1 week. In the event of catastrophic failure or loss of data, these snapshots can be used to restore EC2 instances. Instances to be managed by this policy are identified by the following tag: {AutomatedEbsBackups = true}.
+- Snapshots are taken by the Data Lifecycle Manager.
 
 ## Resource Material
 
@@ -211,8 +209,8 @@ Please use the [issue tracker](https://github.com/InterweaveCloud/terraform_aws_
 ## Contributors
 | Name | Role |
 |------|------|
-| [Faizan Raza](https://www.linkedin.com/in/faizan-raza-997808206/) | Lead Developer |
-| [Muhammad Hasan](https://www.linkedin.com/in/muhammad-hasan-b2553221a/) | Developer |
+| [Muhammad Hasan](https://www.linkedin.com/in/muhammad-hasan-b2553221a/) | Lead Developer |
+| [Faizan Raza](https://www.linkedin.com/in/faizan-raza-997808206/) | Developer |
 
 ## Style Guidelines
 
