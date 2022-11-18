@@ -2,7 +2,7 @@
 
 ## Diagram
 
-![image](https://github.com/InterweaveCloud/terraform_aws_ubuntu_desktop_vm/blob/TER-59-modify-readme-so-it-is-suitable-for-os-consumption/Architecture%20Diagram.png?raw=true)
+
 
 ## Overview
 
@@ -74,14 +74,6 @@ From here click `Begin`, `Next` and `Authorise`.
 
 Currently you must SSH into the instance to apply the command but we will provide a remote exec in a future release.
 
-## Style Guidelines
-
-### Naming Convention
-
-Throughout the module, the naming convention used is as follows:
-- For Terraform resource names, the names consist of lowercase characters and _ to represent spaces in the name.
-- For AWS resource names, the names consist of lowercase characters and - to represent spaces in the name, with the <a name="input_prefix"></a> [prefix](#input\_prefix) variable attached to the beginning of the name and the <a name="input_environment"></a> [environment](#input\_environment).
-
 ## Features
 
 ### Best Practices
@@ -93,8 +85,7 @@ Throughout the module, the naming convention used is as follows:
 
 #### Security
 
-- Spot instance security group only allows [SSH](https://www.ucl.ac.uk/isd/what-ssh-and-how-do-i-use-it#:~:text=SSH%20or%20Secure%20Shell%20is,web%20pages)%20and%20share%20data.), [VNC](https://discover.realvnc.com/how-to-use-vnc-connect-remote-desktop-software#:~:text=VNC%20stands%20for%20Virtual%20Network,right%20in%20front%20of%20it.) and [RDP](https://www.techtarget.com/searchenterprisedesktop/definition/Remote-Desktop-Protocol-RDP#:~:text=What%20is%20remote%20desktop%20protocol,their%20physical%20work%20desktop%20computers.) inbound access from IP addresses specified by the user. This ensures that only specific IP addresses are allowed access. 
-- Spot instance security group allows full outbound access so that the instance has full access to the internet.
+- Spot instance security group only allows [SSH](https://www.ucl.ac.uk/isd/what-ssh-and-how-do-i-use-it#:~:text=SSH%20or%20Secure%20Shell%20is,web%20pages)%20and%20share%20data.), [VNC](https://discover.realvnc.com/how-to-use-vnc-connect-remote-desktop-software#:~:text=VNC%20stands%20for%20Virtual%20Network,right%20in%20front%20of%20it.) and [RDP](https://www.techtarget.com/searchenterprisedesktop/definition/Remote-Desktop-Protocol-RDP#:~:text=What%20is%20remote%20desktop%20protocol,their%20physical%20work%20desktop%20computers.) inbound access from IP addresses specified by the user. 
 - A key pair is generated to allow authentication when accessing the instance using port 22(SSH).
 
 #### Instance Configuration
@@ -223,5 +214,15 @@ Please use the [issue tracker](https://github.com/InterweaveCloud/terraform_aws_
 | [Faizan Raza](https://www.linkedin.com/in/faizan-raza-997808206/) | Lead Developer |
 | [Muhammad Hasan](https://www.linkedin.com/in/muhammad-hasan-b2553221a/) | Developer |
 
+## Style Guidelines
+
+### Naming Convention
+
+Throughout the module, the naming convention used is as follows:
+- For Terraform resource names, the names consist of lowercase characters and _ to represent spaces in the name.
+- For AWS resource names, the names consist of lowercase characters and - to represent spaces in the name, with the <a name="input_prefix"></a> [prefix](#input\_prefix) variable attached to the beginning of the name and the <a name="input_environment"></a> [environment](#input\_environment).
+
 ## Resources Used
 [Terraform Docs](https://terraform-docs.io/) used for generating documentation.
+
+[def]: terraform-aws-ubuntu-desktop-vm/Architecture-Diagram.png
